@@ -14,6 +14,8 @@ const style = {
 
 const cardSource = {
   beginDrag(props) {
+    props.getDragColumn(props.column, props.index)
+
     return {
       id: props.id,
       index: props.index,
@@ -27,7 +29,7 @@ const cardTarget = {
     const hoverIndex = props.index
     const column = props.column
 
-    // console.log(99999, props)
+    // console.log(99999, monitor.getItem(), monitor)
 
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {

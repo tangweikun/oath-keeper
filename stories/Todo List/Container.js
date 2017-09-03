@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import update from 'react/lib/update'
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
+import { cloneDeep } from 'lodash'
 import Card from './Card'
 
 const style = {
@@ -52,15 +53,28 @@ class Container extends Component {
     }
   }
 
+  getDragColumn = (startColumn, startDragIndex) => {
+    // console.log(startColumn, '000', startDragIndex)
+    this.setState({ startColumn, startDragIndex })
+  }
+
   moveCard(dragIndex, hoverIndex, column) {
-    const { taskList } = this.state
+    const { taskList, startColumn, startDragIndex } = this.state
 
-    const elementA = taskList[column][dragIndex - 1]
-    const elementB = taskList[column][hoverIndex - 1]
-    taskList[column][dragIndex - 1] = elementB
-    taskList[column][hoverIndex - 1] = elementA
+    if (startColumn === column) {
+      const elementA = taskList[column][dragIndex - 1]
+      const elementB = taskList[column][hoverIndex - 1]
+      taskList[column][dragIndex - 1] = elementB
+      taskList[column][hoverIndex - 1] = elementA
+      this.setState({ taskList })
+    } else {
+      const elementA = taskList[startColumn][startDragIndex - 1]
+      const taskListClone = cloneDeep(taskList)
 
-    this.setState({ taskList })
+      taskListClone[startColumn].splice(startDragIndex - 1, 1)
+      taskListClone[column].splice(hoverIndex - 1, 0, elementA)
+      this.setState({ taskList: taskListClone, startColumn: column })
+    }
 
     // const cards = taskList[column]
     // const dragCard = cards[dragIndex]
@@ -89,6 +103,7 @@ class Container extends Component {
                 id={card.id}
                 text={card.text}
                 moveCard={this.moveCard}
+                getDragColumn={this.getDragColumn}
               />
             ))}
           </div>
