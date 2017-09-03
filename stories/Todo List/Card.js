@@ -25,6 +25,9 @@ const cardTarget = {
   hover(props, monitor, component) {
     const dragIndex = monitor.getItem().index
     const hoverIndex = props.index
+    const column = props.column
+
+    // console.log(99999, props)
 
     // Don't replace items with themselves
     if (dragIndex === hoverIndex) {
@@ -58,7 +61,7 @@ const cardTarget = {
     }
 
     // Time to actually perform the action
-    props.moveCard(dragIndex, hoverIndex)
+    props.moveCard(dragIndex, hoverIndex, column)
 
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,
