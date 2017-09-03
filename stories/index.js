@@ -8,7 +8,7 @@ import { Button, Welcome } from '@storybook/react/demo'
 import DustbinSingleTarget from '../stories/Single Target'
 import DustbinCopyOrMove from '../stories/Copy or Move'
 import SortableSimple from '../stories/Simple'
-
+import TodoList from '../stories/Todo List'
 storiesOf('Welcome', module).add('to Storybook', () => (
   <Welcome showApp={linkTo('Button')} />
 ))
@@ -25,3 +25,4 @@ storiesOf('React dnd', module)
   .add('Single Target', () => <DustbinSingleTarget />)
   .add('Copy or Move', () => <DustbinCopyOrMove />)
   .add('Simple', () => <SortableSimple />)
+  .add('Todo List', () => <TodoList />)
