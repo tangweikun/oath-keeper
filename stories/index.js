@@ -9,6 +9,8 @@ import DustbinSingleTarget from '../stories/Single Target'
 import DustbinCopyOrMove from '../stories/Copy or Move'
 import SortableSimple from '../stories/Simple'
 import TodoList from '../stories/Todo List'
+import Typing from '../stories/Typing'
+
 storiesOf('Welcome', module).add('to Storybook', () => (
   <Welcome showApp={linkTo('Button')} />
 ))
@@ -26,3 +28,5 @@ storiesOf('React dnd', module)
   .add('Copy or Move', () => <DustbinCopyOrMove />)
   .add('Simple', () => <SortableSimple />)
   .add('Todo List', () => <TodoList />)
+
+storiesOf('Typing', module).add('Demo', () => <Typing />)
