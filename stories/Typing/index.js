@@ -43,14 +43,18 @@ export default class Typing extends Component {
     return (
       <div>
         <div>
-          <span style={{ color: 'green' }}>{completedSentence}</span>
-          <span>{remindingSentence}</span>
+          <span style={{ color: 'green', fontSize: 36 }}>
+            {completedSentence}
+          </span>
+          <span style={{ fontSize: 40 }}>{remindingSentence}</span>
         </div>
-        <input
-          type="text"
-          onKeyDown={e => this.handleKeyDown(e.keyCode)}
-          value={inputValue}
-        />
+        {remindingSentence && (
+          <input
+            type="text"
+            onKeyDown={e => this.handleKeyDown(e.keyCode)}
+            value={inputValue}
+          />
+        )}
       </div>
     )
   }
