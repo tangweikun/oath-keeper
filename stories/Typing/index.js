@@ -4,17 +4,19 @@ export default class Typing extends Component {
   state = {
     currentPosition: 0,
     completedSentence: '',
-    remindingSentence: '1234567890 12345',
+    remindingSentence: 'Aa 1234567890 12345',
     inputValue: '',
   }
 
-  handleKeyDown = keyCode => {
+  handleKeyDown = (keyCode, shiftKey) => {
     const {
       currentPosition,
       completedSentence,
       remindingSentence,
       inputValue,
     } = this.state
+
+    let currentKeyCode = keyCode
 
     if (remindingSentence[0].charCodeAt() === keyCode) {
       let nextInputValue = inputValue + String.fromCharCode(keyCode)
@@ -50,9 +52,10 @@ export default class Typing extends Component {
         </div>
         {remindingSentence && (
           <input
+            shiftKey={false}
             type="text"
-            onKeyDown={e => this.handleKeyDown(e.keyCode)}
             value={inputValue}
+            onKeyPress={e => this.handleKeyDown(e.which, e.shiftKey)}
           />
         )}
       </div>
