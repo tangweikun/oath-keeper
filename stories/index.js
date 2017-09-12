@@ -10,6 +10,7 @@ import DustbinCopyOrMove from '../stories/Copy or Move'
 import SortableSimple from '../stories/Simple'
 import TodoList from '../stories/Todo List'
 import Typing from '../stories/Typing'
+import BMIDashBoard from '../stories/BMI'
 
 storiesOf('Welcome', module).add('to Storybook', () => (
   <Welcome showApp={linkTo('Button')} />
@@ -30,3 +31,5 @@ storiesOf('React dnd', module)
   .add('Todo List', () => <TodoList />)
 
 storiesOf('Typing', module).add('Demo', () => <Typing />)
+
+storiesOf('BMIDashBoard', module).add('BMI', () => <BMIDashBoard />)
