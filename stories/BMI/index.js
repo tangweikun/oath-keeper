@@ -44,6 +44,9 @@ export default class BMIDashBoard extends Component {
                   value="71"
                 />
               </Row>
+              <Result>
+                your BMI is<Number id="bmi-text" />
+              </Result>
             </SliderContainer>
           </Section>
         </Container>
@@ -113,3 +116,19 @@ const SliderContainer = styled.div`
 `
 
 const Row = styled.div`margin-top: 1.5em;`
+
+const Result = styled.h2`
+  color: #333;
+  margin: 3em 0 0 0;
+`
+
+const Number = styled.span`
+  border-width: 5px;
+  width: 4em;
+  height: 4em;
+  font-size: 2rem;
+  line-height: 3.5em;
+  font-weight: normal;
+  margin: auto;
+  margin-top: 10px;
+`
