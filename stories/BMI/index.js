@@ -1,10 +1,57 @@
 import React, { Component } from 'react'
+import Rx from 'rxjs'
 import styled from 'styled-components'
 
 export default class BMIDashBoard extends Component {
+  state = { weight: 71, height: 170, weightSliderElem: null }
+
+  componentDidMount() {
+    var infoButton = document.getElementById('jsInfoButton')
+    var closeButton = document.getElementById('jsCloseButton')
+    var bmiContainer = document.querySelector('.c-bmi-container')
+    const infoButtonClicks$ = Rx.Observable.fromEvent(infoButton, 'click')
+    const closeButtonClicks$ = Rx.Observable.fromEvent(closeButton, 'click')
+    const flipSubscription = Rx.Observable
+      .merge(infoButtonClicks$, closeButtonClicks$)
+      .subscribe(() => bmiContainer.classList.toggle('flipped'))
+    var weightSliderElem = document.querySelector('#weight-slider')
+    var weightSliderElem = document.querySelector('#weight-slider')
+    var heightSliderElem = document.querySelector('#height-slider')
+
+    var weightTextElem = document.querySelector('#weight-text')
+    var heightTextElem = document.querySelector('#height-text')
+
+    var bmiTextElem = document.querySelector('#bmi-text')
+    var weight = Rx.Observable
+      .fromEvent(weightSliderElem, 'input')
+      .map(ev => ev.target.value)
+      .startWith(weightSliderElem.value)
+
+    // weight.subscribe(x => console.log('x'))
+
+    var height = Rx.Observable
+      .fromEvent(heightSliderElem, 'input')
+      .map(ev => ev.target.value)
+      .startWith(heightSliderElem.value)
+    var bmi = weight.combineLatest(height, (w, h) =>
+      (w / (h * h * 0.0001)).toFixed(1),
+    )
+
+    // Observers
+    var weightObserver = x => (weightTextElem.innerHTML = x)
+    var heightObserver = x => (heightTextElem.innerHTML = x)
+    var bmiObserver = x => (bmiTextElem.innerHTML = x)
+
+    // Subscriptions
+    weight.subscribe(weightObserver)
+    height.subscribe(heightObserver)
+    bmi.subscribe(bmiObserver)
+
+    // weight.subscribe(x => console.log('x'))
+  }
   render() {
     return (
-      <Wrapper>
+      <Wrapper className="c-bmi-container">
         <Container>
           <Section>
             <SliderContainer>
@@ -23,7 +70,6 @@ export default class BMIDashBoard extends Component {
                   min="40"
                   max="120"
                   step="1"
-                  value="71"
                 />
               </Row>
               <Row>
@@ -41,14 +87,25 @@ export default class BMIDashBoard extends Component {
                   min="40"
                   max="120"
                   step="1"
-                  value="71"
                 />
               </Row>
               <Result>
                 your BMI is<Number id="bmi-text" />
               </Result>
+              <button
+                id="jsInfoButton"
+                class="g-buttonClean g-btn-shadow c-bmi__info"
+              >
+                <i>i</i>
+              </button>
             </SliderContainer>
           </Section>
+          <button
+            id="jsCloseButton"
+            class="g-buttonClean g-btn-shadow c-bmi__info c-bmi__info--x"
+          >
+            x
+          </button>
         </Container>
       </Wrapper>
     )
